@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="1" author="favourite-collections">
+        <createTable tableName="m_role">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="name" type="text">
+                <constraints unique="true" uniqueConstraintName="m_role_name_UK"/>
+            </column>
+            <column name="description" type="text"/>
+
+            <column name="is_disabled" type="boolean"/>
+
+            <column defaultValueComputed="NULL" name="createdby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="lastmodifiedby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_date" type="datetime"/>
+            <column defaultValueComputed="NULL" name="lastmodified_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="favourite-collections">
+        <createTable tableName="m_permission">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="grouping" type="text"/>
+            <column name="action_name" type="text"/>
+            <column name="entity_name" type="text"/>
+            <column name="display_name" type="text">
+                <constraints unique="true" uniqueConstraintName="m_permission_display_name_UK"/>
+            </column>
+
+            <column name="description" type="text"/>
+            <column name="is_disabled" type="boolean"/>
+
+            <column defaultValueComputed="NULL" name="createdby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="lastmodifiedby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_date" type="datetime"/>
+            <column defaultValueComputed="NULL" name="lastmodified_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="favourite-collections">
+        <createTable tableName="m_code">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="code_name" type="text"/>
+            <column name="is_system_defined" type="boolean"/>
+            <column name="external_use" type="int"/>
+
+            <column defaultValueComputed="NULL" name="createdby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="lastmodifiedby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_date" type="datetime"/>
+            <column defaultValueComputed="NULL" name="lastmodified_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="favourite-collections">
+        <createTable tableName="m_code_value">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="code_value" type="text"/>
+            <column name="order_position" type="int"/>
+            <column name="code_description" type="text"/>
+            <column name="code_id" type="bigint">
+                <constraints referencedTableName="m_code" referencedColumnNames="id" foreignKeyName="m_code_id_FK" />
+            </column>
+            <column name="is_active" type="boolean"/>
+            <column name="is_mandatory" type="boolean"/>
+
+            <column defaultValueComputed="NULL" name="createdby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="lastmodifiedby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_date" type="datetime"/>
+            <column defaultValueComputed="NULL" name="lastmodified_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="favourite-collections">
+        <createTable tableName="m_product">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="name" type="text">
+                <constraints unique="true" foreignKeyName="m_product_name_FK"/>
+            </column>
+            <column name="unit_price" type="decimal"/>
+            <column name="image_url" type="text"/>
+            <column name="available_quantity" type="int"/>
+            <column name="color_id" type="bigint">
+                <constraints referencedTableName="m_code_value" referencedColumnNames="id" foreignKeyName="m_code_value_id_FK"/>
+            </column>
+            <column name="description" type="text"/>
+
+            <column name="subcategory_id" type="bigint">
+                <constraints referencedTableName="m_code_value" referencedColumnNames="id" foreignKeyName="m_subcategory_code_value_id_FK"/>
+            </column>
+            <column defaultValueComputed="NULL" name="createdby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="lastmodifiedby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_date" type="datetime"/>
+            <column defaultValueComputed="NULL" name="lastmodified_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="favourite-collections">
+        <createTable tableName="m_cart">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="total" type="decimal"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="favourite-collections">
+        <createTable tableName="m_cart_item">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="product_name" type="text"/>
+            <column name="unit_price" type="decimal"/>
+            <column name="order_quantity" type="int"/>
+            <column name="sub_total" type="decimal"/>
+            <column name="product_id" type="bigint">
+                <constraints referencedTableName="m_product" referencedColumnNames="id" foreignKeyName="m_product_cart_item_FK"/>
+            </column>
+
+            <column name="cart_id" type="bigint">
+                <constraints referencedTableName="m_cart" referencedColumnNames="id" foreignKeyName="m_cart_cart_item_FK"/>
+            </column>
+
+            <column name="image_url" type="text"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="favourite-collections">
+        <createTable tableName="m_appuser">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="firstname" type="text"/>
+            <column name="lastname" type="text"/>
+
+            <column name="email" type="text">
+                <constraints nullable="false" unique="true" uniqueConstraintName="m_app_user_UK"/>
+            </column>
+            <column name="password" type="text">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="date_of_birth" type="text"/>
+            <column name="phone_no" type="text"/>
+            <column name="is_verified" type="boolean"/>
+            <column name="is_active" type="boolean"/>
+            <column name="gender_id" type="int"/>
+            <column name="role_id" type="bigint"/>
+            <column name="cart_id" type="bigint"/>
+
+            <column defaultValueComputed="NULL" name="createdby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="lastmodifiedby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_date" type="datetime"/>
+            <column defaultValueComputed="NULL" name="lastmodified_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="9" author="favourite-collections">
+        <createTable tableName="m_role_permissions">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="role_id" type="bigint">
+                <constraints referencedTableName="m_role" referencedColumnNames="id" foreignKeyName="m_role_permissions_role_FK"/>
+            </column>
+
+            <column name="permissions_id" type="bigint">
+                <constraints referencedTableName="m_permission" referencedColumnNames="id" foreignKeyName="m_role_permissions_permission_FK"/>
+            </column>
+
+            <column name="image_url" type="text"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="10" author="favourite-collections">
+        <createTable tableName="m_address">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="street_number" type="text"/>
+            <column name="junction" type="text"/>
+            <column name="city" type="text"/>
+            <column name="state" type="text"/>
+
+            <column name="country" type="text"/>
+            <column name="is_default" type="boolean"/>
+            <column name="appuser_id" type="bigint"/>
+
+            <column defaultValueComputed="NULL" name="createdby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="lastmodifiedby_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_date" type="datetime"/>
+            <column defaultValueComputed="NULL" name="lastmodified_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="11" author="favourite-collections">
+        <createTable tableName="m_token">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="token" type="longtext"/>
+            <column name="start_time" type="bigint"/>
+            <column name="expiration_time" type="bigint"/>
+            <column name="appuser_id" type="bigint">
+                <constraints referencedTableName="m_appuser" referencedColumnNames="id" foreignKeyName="appuser_id_FK" />
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
