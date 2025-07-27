@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.favourite.collections</groupId>
-  <artifactId>user-service</artifactId>
+  <artifactId>fc-user-service</artifactId>
   <version>1.0</version>
   <name>fc-core-data-service</name>
   <description>favourite-collections</description>

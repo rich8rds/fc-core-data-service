@@ -21,22 +21,22 @@ services:
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT}
       OTEL_METRIC_EXPORT_INTERVAL: ${OTEL_METRIC_EXPORT_INTERVAL}
 
-  postgresdb:
-    container_name: postgresdb
-    image: postgres:latest
-    restart: always
-    depends_on:
-      - api-gateway
-    networks:
-      - fcNet
-      - jaegerNet
-      - notificationsNet
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
+#  postgresdb:
+#    container_name: postgresdb
+#    image: postgres:latest
+#    restart: always
+#    depends_on:
+#      - api-gateway
+#    networks:
+#      - fcNet
+#      - jaegerNet
+#      - notificationsNet
+#    environment:
+#      POSTGRES_DB: ${POSTGRES_DB}
+#      POSTGRES_USER: ${POSTGRES_USER}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#    ports:
+#      - "5432:5432"
 
 
 networks:
