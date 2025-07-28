@@ -1,6 +1,6 @@
 services:
   notifications-service:
-    image: ${ECR_REPOSITORY}/fc-notifications-service:latest
+    image: ${ECR_REPOSITORY}/fc-user-service:1.0.0
     container_name: notifications-service
     ports:
       - "4089:4089"
@@ -14,7 +14,7 @@ services:
       - ./.env
     environment:
       TZ: ${TIMEZONE}
-      OTEL_SERVICE_NAME: "notifications-service"
+      OTEL_SERVICE_NAME: "user-service"
       SPRING_PROFILES_ACTIVE: "docker"
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES}
       OTEL_EXPORTER_OTLP_PROTOCOL: ${OTEL_EXPORTER_OTLP_PROTOCOL}

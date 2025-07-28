@@ -4,7 +4,7 @@
 
   <groupId>com.favourite.collections</groupId>
   <artifactId>fc-user-service</artifactId>
-  <version>1.0</version>
+  <version>1.0.0</version>
   <name>fc-core-data-service</name>
   <description>favourite-collections</description>
   <packaging>jar</packaging>
@@ -245,7 +245,7 @@
           </from>
           <!-- <to>${project.artifactId}:${project.version}</to>-->
           <to>
-            <image>registry.hub.docker.com/rich8rds/${project.artifactId}:latest</image>
+            <image>registry.hub.docker.com/rich8rds/${project.artifactId}:${project.version}</image>
           </to>
           <container>
             <jvmFlags>

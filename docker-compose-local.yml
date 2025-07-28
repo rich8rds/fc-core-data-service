@@ -14,7 +14,7 @@ services:
       - ./.env
     environment:
       TZ: ${TIMEZONE}
-      OTEL_SERVICE_NAME: "notifications-service"
+      OTEL_SERVICE_NAME: "user-service"
       SPRING_PROFILES_ACTIVE: "docker"
       OTEL_RESOURCE_ATTRIBUTES: ${OTEL_RESOURCE_ATTRIBUTES}
       OTEL_EXPORTER_OTLP_PROTOCOL: ${OTEL_EXPORTER_OTLP_PROTOCOL}
